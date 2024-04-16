@@ -3,6 +3,11 @@ const ShopModel = require('../model/shopModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
+const axios = require('axios');
+
+const url = 'https://httpbin.io/anything';
+const apikey = '802caba38bf68a901f0b17eb757d3f9aaacc1e64';
+
 exports.registerPage = async (req, res) => {
     try {
         const data = req.body;
@@ -260,4 +265,34 @@ exports.shopCreat = async (req, res) => {
     } catch (err) {
         console.log(err)
     }
-}
+};
+
+exports.getProduct = async (req, res) => {
+    try {
+        const itemResponse = await axios({
+            url: 'https://api.zenrows.com/v1/',
+            method: 'GET',
+            params: {
+                'url': url,
+                'apikey': apikey,
+            },
+        });
+
+        // Extracting necessary data from the response
+        const itemData = itemResponse.data;
+
+        console.log(">>>>>>>>>>>>item ", itemData);
+
+        return res.json({
+            code: 200,
+            data: itemData
+        });
+
+        // Code after res.json() will not execute
+        console.log("hellop");
+    } catch (error) {
+        console.log(error);
+        // Handle error appropriately, e.g., send an error response
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+};

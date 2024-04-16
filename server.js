@@ -12,4 +12,4 @@ app.use(router);
 app.listen(port, () => {
     db.dbConnection()
     console.log(`server is running on port ${port}`)
-})
+}) 

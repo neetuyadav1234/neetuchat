@@ -9,4 +9,6 @@ router.post('/loginPage', controller.loginPage);
 router.post('/updateUser', verify, controller.updateUser);
 router.post('/shopCreat', controller.shopCreat);
 
+router.get("/getProduct",controller.getProduct)
+
 module.exports = router;
